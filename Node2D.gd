@@ -30,7 +30,7 @@ func _on_ServerButton_pressed():
 	print(typeof(endereco))
 	if((!isClient) and (!isServer)):
 		net.create_server(port,max_player)
-		get_tree().network_peer = net
+		get_tree().set_network_peer(net)
 		statusLabel.text = "server is running \n"
 		statusLabel.text += str("IP:", endereco[5], "\n")
 		
