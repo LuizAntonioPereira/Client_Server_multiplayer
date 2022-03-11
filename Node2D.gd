@@ -39,7 +39,7 @@ func _on_ServerButton_pressed():
 		
 		
 	elif isServer:
-		get_tree().network_peer = null
+		get_tree().set_network_peer(null)
 		net.close_connection()
 		statusLabel.text = ""
 		btnServer.text = "Start Server"
@@ -61,19 +61,17 @@ func on_client_connected(id):
 func _on_ClientButton_pressed():
 	if((!isClient) and (!isServer)):
 		net.create_client(Text,port)
-		get_tree().network_peer = net
+		get_tree().set_network_peer(net)
 		statusLabel.text = "client is running"
 		btnClient.text = "Stop Client"
 		isClient = true
 		
 	elif isClient:
-		get_tree().network_peer = null
+		get_tree().set_network_peer(null)
 		net.close_connection()
 		statusLabel.text = ""
 		btnClient.text = "Start Client"
 		isClient = false
-		get_tree().disconnect("connected_to_server", self,"on_connected")
-		get_tree().disconnect("server_disconnected", self,"on_disconnected")
 
 func on_connected(id):
 	logLabel.text += "client_connected \n" + str(id)
