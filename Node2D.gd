@@ -89,7 +89,7 @@ remotesync func assign_server(numero):
 		
 	#print(numero)
 	
-remotesyc func assign_client(numero2):	
+remotesync func assign_client(numero2):	
 
 	#receber = numero
 		
