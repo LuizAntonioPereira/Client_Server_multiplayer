@@ -20,6 +20,8 @@ onready var Text = get_node("CanvasLayer/VBoxContainer/HBoxContainer/TextEdit").
 var endereco = IP.get_local_addresses()
 
 func _ready():
+	self.Text = self.get_ip_address()
+	
 	get_tree().connect("connected_to_server", self,"on_connected")
 	get_tree().connect("server_disconnected", self,"on_disconnected")
 	get_tree().connect("network_peer_connected", self,"on_client_connected")
@@ -115,3 +117,16 @@ func _on_SendButton_pressed():
 		#rpc_unreliable( "assign_client", num)
 		rpc_unreliable_id(1,"assign_server", num2)		
 	pass # Replace with function body.
+	
+func get_ip_address():
+	var result_ip = ""
+	if OS.get_name() == 'Android':
+		result_ip = IP.get_local_addresses()[0]
+	else:
+		result_ip = IP.get_local_addresses()[3]
+
+	for ip in IP.get_local_addresses():
+		if ip.begins_with('192.168.') and not ip.ends_with('.1'):
+			result_ip = ip
+
+	return result_ip
