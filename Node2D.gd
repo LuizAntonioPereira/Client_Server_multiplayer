@@ -19,6 +19,12 @@ onready var Text = get_node("CanvasLayer/VBoxContainer/HBoxContainer/TextEdit").
 
 var endereco = IP.get_local_addresses()
 
+func _ready():
+	get_tree().connect("connected_to_server", self,"on_connected")
+	get_tree().connect("server_disconnected", self,"on_disconnected")
+	get_tree().disconnect("network_peer_connected", self,"on_client_connected")
+	get_tree().disconnect("network_peer_disconnected", self,"on_client_disconnected")
+
 func _on_ServerButton_pressed():
 	print(endereco)
 	print(typeof(endereco))
@@ -30,8 +36,7 @@ func _on_ServerButton_pressed():
 		
 		btnServer.text = "Stop Server"
 		isServer = true		
-		get_tree().connect("network_peer_connected", self,"on_client_connected")
-		get_tree().connect("network_peer_disconnected", self,"on_client_disconnected")
+		
 		
 	elif isServer:
 		get_tree().network_peer = null
@@ -39,8 +44,7 @@ func _on_ServerButton_pressed():
 		statusLabel.text = ""
 		btnServer.text = "Start Server"
 		isServer = false
-		get_tree().disconnect("network_peer_connected", self,"on_client_connected")
-		get_tree().disconnect("network_peer_disconnected", self,"on_client_disconnected")
+		
 
 func on_client_disconnected(id):
 		print(id)
@@ -61,8 +65,7 @@ func _on_ClientButton_pressed():
 		statusLabel.text = "client is running"
 		btnClient.text = "Stop Client"
 		isClient = true
-		get_tree().connect("connected_to_server", self,"on_connected")
-		get_tree().connect("server_disconnected", self,"on_disconnected")
+		
 	elif isClient:
 		get_tree().network_peer = null
 		net.close_connection()
