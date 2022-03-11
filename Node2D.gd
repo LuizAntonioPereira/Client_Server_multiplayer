@@ -22,9 +22,9 @@ var endereco = IP.get_local_addresses()
 func _ready():
 	get_tree().connect("connected_to_server", self,"on_connected")
 	get_tree().connect("server_disconnected", self,"on_disconnected")
-	get_tree().disconnect("network_peer_connected", self,"on_client_connected")
-	get_tree().disconnect("network_peer_disconnected", self,"on_client_disconnected")
-
+	get_tree().connect("network_peer_connected", self,"on_client_connected")
+	get_tree().connect("network_peer_disconnected", self,"on_client_disconnected")
+	
 func _on_ServerButton_pressed():
 	print(endereco)
 	print(typeof(endereco))
