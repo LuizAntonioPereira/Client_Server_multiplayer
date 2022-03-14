@@ -18,14 +18,6 @@ onready var logLabel = get_node("CanvasLayer/VBoxContainer/Log")
 onready var Text = get_node("CanvasLayer/VBoxContainer/HBoxContainer/TextEdit").text
 
 var endereco = IP.get_local_addresses()
-
-func _ready():
-	self.Text = self.get_ip_address()
-	
-	get_tree().connect("connected_to_server", self,"on_connected")
-	get_tree().connect("server_disconnected", self,"on_disconnected")
-	get_tree().connect("network_peer_connected", self,"on_client_connected")
-	get_tree().connect("network_peer_disconnected", self,"on_client_disconnected")
 	
 func _on_ServerButton_pressed():
 	print(endereco)
@@ -35,11 +27,12 @@ func _on_ServerButton_pressed():
 		net.create_server(port,max_player)
 		get_tree().set_network_peer(net)
 		statusLabel.text = "server is running \n"
-		statusLabel.text += str("IP:", endereco[5], "\n")
+		statusLabel.text += str("IP:", get_ip_address(), "\n")
 		
 		btnServer.text = "Stop Server"
 		isServer = true		
-		
+		get_tree().connect("network_peer_connected", self,"on_client_connected")
+		get_tree().connect("network_peer_disconnected", self,"on_client_disconnected")
 		
 	elif isServer:
 		get_tree().set_network_peer(null)
@@ -47,7 +40,8 @@ func _on_ServerButton_pressed():
 		statusLabel.text = ""
 		btnServer.text = "Start Server"
 		isServer = false
-		
+		get_tree().disconnect("network_peer_connected", self,"on_client_connected")
+		get_tree().disconnect("network_peer_disconnected", self,"on_client_disconnected")
 
 func on_client_disconnected(id):
 		print(id)
@@ -69,13 +63,16 @@ func _on_ClientButton_pressed():
 		statusLabel.text = "client is running"
 		btnClient.text = "Stop Client"
 		isClient = true
-		
+		get_tree().connect("connected_to_server", self,"on_connected")
+		get_tree().connect("server_disconnected", self,"on_disconnected")
 	elif isClient:
 		get_tree().set_network_peer(null)
 		net.close_connection()
 		statusLabel.text = ""
 		btnClient.text = "Start Client"
 		isClient = false
+		get_tree().disconnect("connected_to_server", self,"on_connected")
+		get_tree().disconnect("server_disconnected", self,"on_disconnected")
 
 func on_connected(id):
 	logLabel.text += "client_connected \n" + str(id)
@@ -121,14 +118,6 @@ func _on_SendButton_pressed():
 	pass # Replace with function body.
 	
 func get_ip_address():
-	var result_ip = ""
-	if OS.get_name() == 'Android':
-		result_ip = IP.get_local_addresses()[0]
-	else:
-		result_ip = IP.get_local_addresses()[3]
-
 	for ip in IP.get_local_addresses():
-		if ip.begins_with('192.168.') and not ip.ends_with('.1'):
-			result_ip = ip
-
-	return result_ip
+		if ip.begins_with("192.168."):
+			return ip
