@@ -1,6 +1,6 @@
 extends Node2D
 
-var net = NetworkedMultiplayerENet.new()
+
 var port = 1901
 var ip_address = "127.0.0.1"
 var max_player = 10
@@ -30,6 +30,7 @@ func _ready():
 func _on_ServerButton_pressed():
 	print(endereco)
 	print(typeof(endereco))
+	var net = NetworkedMultiplayerENet.new()
 	if((!isClient) and (!isServer)):
 		net.create_server(port,max_player)
 		get_tree().set_network_peer(net)
@@ -61,6 +62,7 @@ func on_client_connected(id):
 		#$CanvasLayer/VBoxContainer/HBoxContainer/SendButton.name ="player" + str(id)
 
 func _on_ClientButton_pressed():
+	var net = NetworkedMultiplayerENet.new()
 	if((!isClient) and (!isServer)):
 		net.create_client(Text,port)
 		get_tree().set_network_peer(net)
