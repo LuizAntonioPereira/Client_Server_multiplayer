@@ -1,9 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Node2D.gd" type="Script" id=1]
+[ext_resource path="res://network_updated.gd" type="Script" id=1]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource( 1 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -12,6 +11,7 @@ anchor_right = 1.0
 margin_left = 10.0
 margin_top = 10.0
 margin_right = -10.0
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -54,6 +54,7 @@ margin_top = 42.0
 margin_right = 580.0
 margin_bottom = 56.0
 
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer/ServerButton" to="." method="_on_ServerButton_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer/ClientButton" to="." method="_on_ClientButton_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer/SendButton" to="." method="_on_SendButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer/ServerButton" to="CanvasLayer/VBoxContainer" method="_on_ServerButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer/ClientButton" to="CanvasLayer/VBoxContainer" method="_on_ClientButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer/SendButton" to="CanvasLayer/VBoxContainer" method="_on_SendButton_pressed"]
+[connection signal="text_changed" from="CanvasLayer/VBoxContainer/HBoxContainer/TextEdit" to="CanvasLayer/VBoxContainer" method="_on_TextEdit_text_changed"]

@@ -18,6 +18,10 @@ config/name="Server_Client_multiplayer"
 run/main_scene="res://Node2D.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Network="*res://Node2D.gd"
+
 [display]
 
 window/size/width=600
