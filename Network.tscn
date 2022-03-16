@@ -58,8 +58,3 @@ margin_bottom = 56.0
 margin_top = 60.0
 margin_right = 580.0
 margin_bottom = 84.0
-
-[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/ServerButton" to="CanvasLayer/Control" method="_on_ServerButton_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/ClientButton" to="CanvasLayer/Control" method="_on_ClientButton_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/SendButton" to="CanvasLayer/Control" method="_on_SendButton_pressed"]
-[connection signal="text_changed" from="CanvasLayer/Control/HBoxContainer/TextEdit" to="CanvasLayer/Control" method="_on_TextEdit_text_changed"]
