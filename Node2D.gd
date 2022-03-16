@@ -53,7 +53,7 @@ func reset_network_connection():
 		get_tree().network_peer = null
 
 
-func _on_ClientButton_pressed():
+func join_server():
 	client = NetworkedMultiplayerENet.new()
 	client.create_client(ip_address,port)
 	get_tree().set_network_peer(client)
