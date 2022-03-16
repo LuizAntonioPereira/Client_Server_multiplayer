@@ -18,10 +18,15 @@ onready var logLabel = get_node("CanvasLayer/VBoxContainer/Log")
 onready var Text = get_node("CanvasLayer/VBoxContainer/HBoxContainer/TextEdit").text
 
 var endereco = IP.get_local_addresses()
+
+func _ready():
+	get_tree().connect("network_peer_connected", self, "on_client_connected")
+	get_tree().connect("network_peer_disconnected", self, "on_client_disconnected")
+	get_tree().connect("connected_to_server", self, "_on_connected")
+	get_tree().connect("server_disconnected", self, "on_disconnected")
 	
 func _on_ServerButton_pressed():
-	print(endereco)
-	print(typeof(endereco))
+
 	var net = NetworkedMultiplayerENet.new()
 	if((!isClient) and (!isServer)):
 		net.create_server(port,max_player)
@@ -100,12 +105,14 @@ remotesync func assign_client(numero2):
 
 func _on_SendButton_pressed():
 	
+	var id = get_tree().get_network_unique_id()
+	
 	if get_tree().is_network_server():
 		#rpc("assign_server",teste)
 		var num = 1.0
 		print("entrou no servidor")		
-		rpc_unreliable_id(1,"assign_server", num)
-		rpc_unreliable_id(2,"assign_client")
+		rpc_unreliable_id(id,"assign_server", num)
+		rpc_unreliable_id(id,"assign_client")
 				
 		#rpc_id(1, "assign_server")
 		pass
@@ -114,7 +121,7 @@ func _on_SendButton_pressed():
 		var num2 = 2.0
 		#print("entrou no servidor")		
 		#rpc_unreliable( "assign_client", num)
-		rpc_unreliable_id(1,"assign_server", num2)		
+		rpc_unreliable_id(id,"assign_server", num2)		
 	pass # Replace with function body.
 	
 func get_ip_address():
