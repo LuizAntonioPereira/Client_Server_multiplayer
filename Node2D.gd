@@ -36,8 +36,8 @@ func _on_ServerButton_pressed():
 		
 		btnServer.text = "Stop Server"
 		isServer = true		
-		get_tree().connect("network_peer_connected", self,"on_client_connected")
-		get_tree().connect("network_peer_disconnected", self,"on_client_disconnected")
+		#get_tree().connect("network_peer_connected", self,"on_client_connected")
+		#get_tree().connect("network_peer_disconnected", self,"on_client_disconnected")
 		
 	elif isServer:
 		get_tree().set_network_peer(null)
@@ -45,8 +45,8 @@ func _on_ServerButton_pressed():
 		statusLabel.text = ""
 		btnServer.text = "Start Server"
 		isServer = false
-		get_tree().disconnect("network_peer_connected", self,"on_client_connected")
-		get_tree().disconnect("network_peer_disconnected", self,"on_client_disconnected")
+		#get_tree().disconnect("network_peer_connected", self,"on_client_connected")
+		#get_tree().disconnect("network_peer_disconnected", self,"on_client_disconnected")
 
 func on_client_disconnected(id):
 		print(id)
