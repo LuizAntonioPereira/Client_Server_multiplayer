@@ -27,10 +27,13 @@ func _ready():
 func create_server():
 
 	server = NetworkedMultiplayerENet.new()
-	server.create_server(port,max_player)
-	get_tree().set_network_peer(server)
-	print("server is running \n")
-	print(str("IP:", get_ip_address(), "\n"))
+	if(server.create_server(port,max_player) != OK):
+		print("Failed to create server")
+		return
+	else:
+		print("server is running \n")
+		print(str("IP:", get_ip_address(), "\n"))		
+	get_tree().set_network_peer(server)	
 	
 func on_client_disconnected(id):
 	#	print(id)
@@ -54,10 +57,13 @@ func _connection_failed():
 
 
 func join_server():
-	client = NetworkedMultiplayerENet.new()
-	client.create_client(ip_address,port)
+	client = NetworkedMultiplayerENet.new()	
+	if (client.create_client(ip_address, port) != OK):
+		print("Failed to create client")
+		emit_signal("join_fail")
+		return
+		
 	get_tree().set_network_peer(client)
-	print("client is running")
 	
 func on_connected(id):
 	print("client_connected \n" + str(id))

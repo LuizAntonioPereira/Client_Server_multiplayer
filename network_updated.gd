@@ -1,12 +1,6 @@
 extends VBoxContainer
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
@@ -18,6 +12,7 @@ func _ready():
 
 func _on_TextEdit_text_changed(new_text):
 	Network.ip_address = new_text
+	print(Network.ip_address)
 
 
 func _on_ServerButton_pressed():
