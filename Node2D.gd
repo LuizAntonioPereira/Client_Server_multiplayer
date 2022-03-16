@@ -68,16 +68,16 @@ func _on_ClientButton_pressed():
 		statusLabel.text = "client is running"
 		btnClient.text = "Stop Client"
 		isClient = true
-		get_tree().connect("connected_to_server", self,"on_connected")
-		get_tree().connect("server_disconnected", self,"on_disconnected")
+		#get_tree().connect("connected_to_server", self,"on_connected")
+		#get_tree().connect("server_disconnected", self,"on_disconnected")
 	elif isClient:
 		get_tree().set_network_peer(null)
 		net.close_connection()
 		statusLabel.text = ""
 		btnClient.text = "Start Client"
 		isClient = false
-		get_tree().disconnect("connected_to_server", self,"on_connected")
-		get_tree().disconnect("server_disconnected", self,"on_disconnected")
+		#get_tree().disconnect("connected_to_server", self,"on_connected")
+		#get_tree().disconnect("server_disconnected", self,"on_disconnected")
 
 func on_connected(id):
 	logLabel.text += "client_connected \n" + str(id)
