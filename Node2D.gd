@@ -15,7 +15,7 @@ onready var statusLabel = get_node("CanvasLayer/VBoxContainer/Status")
 onready var btnServer = get_node("CanvasLayer/VBoxContainer/HBoxContainer/ServerButton")
 onready var btnClient = get_node("CanvasLayer/VBoxContainer/HBoxContainer/ClientButton")
 onready var logLabel = get_node("CanvasLayer/VBoxContainer/Log")
-onready var Text = get_node("CanvasLayer/VBoxContainer/HBoxContainer/TextEdit").text
+onready var Text = get_node("CanvasLayer/VBoxContainer/HBoxContainer/TextEdit")
 
 var endereco = IP.get_local_addresses()
 
@@ -63,7 +63,8 @@ func on_client_connected(id):
 func _on_ClientButton_pressed():
 	var net = NetworkedMultiplayerENet.new()
 	if((!isClient) and (!isServer)):
-		net.create_client(Text,port)
+		net.create_client(Text.text,port)
+		statusLabel.text = Text.text
 		get_tree().set_network_peer(net)
 		statusLabel.text = "client is running"
 		btnClient.text = "Stop Client"
