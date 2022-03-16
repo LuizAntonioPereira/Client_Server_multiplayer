@@ -2,7 +2,7 @@ extends Node2D
 
 
 var port = 1901
-var ip_address #= "127.0.0.1"
+var ip_address = "127.0.0.1"
 var max_player = 10
 
 var client = null

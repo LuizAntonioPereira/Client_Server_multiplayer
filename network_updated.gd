@@ -26,6 +26,7 @@ func _on_ServerButton_pressed():
 
 func _on_ClientButton_pressed():
 	Network.join_server()
+	get_tree().get_network_unique_id()
 
 
 func _on_SendButton_pressed():
