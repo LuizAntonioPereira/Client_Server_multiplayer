@@ -2,7 +2,7 @@ extends Node2D
 
 
 var port = 1901
-var ip_address = "127.0.0.1"
+var ip_address #= "127.0.0.1"
 var max_player = 10
 
 var client = null
@@ -33,24 +33,24 @@ func create_server():
 	print(str("IP:", get_ip_address(), "\n"))
 	
 func on_client_disconnected(id):
-		print(id)
+	#	print(id)
 		print(str(id) + " is disconnect \n")
 		
 func on_client_connected(id):
-		print(id)
+	#	print(id)
 		print(str(id) + " is connect \n")
 		
-		teste = id					
-		$CanvasLayer/VBoxContainer/HBoxContainer/SendButton.set_network_master(id)
+	#	teste = id					
+	#	$CanvasLayer/VBoxContainer/HBoxContainer/SendButton.set_network_master(id)
 		#$CanvasLayer/VBoxContainer/HBoxContainer/SendButton.name ="player" + str(id)
 
 func _connection_failed():
 	print("falha de conexao com servidor")
-	reset_network_connection()
+#	reset_network_connection()
 
-func reset_network_connection():
-	if get_tree().has.network_peer():
-		get_tree().network_peer = null
+#func reset_network_connection():
+#	if get_tree().has.network_peer():
+#		get_tree().network_peer = null
 
 
 func join_server():
